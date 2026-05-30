@@ -166,6 +166,25 @@
         );
         opacity: 0.8;
       }
+      .skill-reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+        will-change: opacity, transform;
+      }
+      .skill-reveal.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .skill-reveal {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+      }
     </style>
   </head>
   <body
@@ -373,8 +392,277 @@
                   Current stack and tooling overview.
                 </p>
               </div> -->
+              <div class="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div
+                  class="skill-reveal rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm"
+                  style="transition-delay: 0ms"
+                >
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                    <h3
+                      class="text-sm font-bold uppercase tracking-wider text-primary"
+                    >
+                      Languages
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >JavaScript (ES6+)</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >TypeScript</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="skill-reveal rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm"
+                  style="transition-delay: 70ms"
+                >
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+                    <h3
+                      class="text-sm font-bold uppercase tracking-wider text-pink-600 dark:text-pink-400"
+                    >
+                      Core Frontend
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >HTML5</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >CSS3/SCSS</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >React</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Next.js</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Tailwind CSS</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Framer Motion</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="skill-reveal rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm"
+                  style="transition-delay: 140ms"
+                >
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                    <h3
+                      class="text-sm font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400"
+                    >
+                      State Mgmt
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >GraphQL</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Redux Toolkit</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Zustand</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Context API</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Recoil</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="skill-reveal rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm"
+                  style="transition-delay: 210ms"
+                >
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                    <h3
+                      class="text-sm font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400"
+                    >
+                      Data &amp; Testing
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >TanStack Query</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Jest</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Playwright</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="skill-reveal rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm"
+                  style="transition-delay: 280ms"
+                >
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                    <h3
+                      class="text-sm font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400"
+                    >
+                      Backend &amp; APIs
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Node.js</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Express</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >GraphQL</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >REST</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="skill-reveal rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm"
+                  style="transition-delay: 350ms"
+                >
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span>
+                    <h3
+                      class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400"
+                    >
+                      Cloud &amp; Ops
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >GitLab CI/CD</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Vercel</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >GitHub Actions</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Netlify</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Kubernetes</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="skill-reveal rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm"
+                  style="transition-delay: 420ms"
+                >
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+                    <h3
+                      class="text-sm font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400"
+                    >
+                      Databases
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >PostgreSQL</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >MongoDB</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Firebase</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Supabase</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >MySQL</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="skill-reveal rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm"
+                  style="transition-delay: 490ms"
+                >
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-slate-500"></span>
+                    <h3
+                      class="text-sm font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300"
+                    >
+                      Tooling
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Git</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Vite</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Webpack</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Figma</span
+                    >
+                    <span
+                      class="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-transform duration-200 active:scale-95"
+                      >Storybook</span
+                    >
+                  </div>
+                </div>
+              </div>
               <div
-                class="relative rounded-lg overflow-hidden shadow-2xl ring-1 ring-gray-900/5 dark:ring-white/10 bg-terminal-bg"
+                class="relative hidden md:block rounded-lg overflow-hidden shadow-2xl ring-1 ring-gray-900/5 dark:ring-white/10 bg-terminal-bg"
               >
                 <div
                   class="h-10 bg-terminal-header border-b border-gray-700 flex items-center px-4 justify-between select-none"
@@ -621,7 +909,7 @@
                   </div>
                 </div>
               </div>
-              <div class="mt-4 text-center">
+              <div class="mt-4 text-center hidden md:block">
                 <span class="text-xs text-gray-400 dark:text-gray-500 font-mono"
                   >Last login: Today from 192.168.1.1</span
                 >
@@ -1600,6 +1888,40 @@
           resetButton();
         }
       });
+    </script>
+    <script>
+      // Reveal mobile skill cards on scroll
+      (function () {
+        var cards = document.querySelectorAll(".skill-reveal");
+        if (!cards.length) return;
+
+        var reduceMotion =
+          window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (reduceMotion || !("IntersectionObserver" in window)) {
+          cards.forEach(function (el) {
+            el.classList.add("is-visible");
+          });
+          return;
+        }
+
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
+        );
+
+        cards.forEach(function (el) {
+          observer.observe(el);
+        });
+      })();
     </script>
   </body>
 </html>
