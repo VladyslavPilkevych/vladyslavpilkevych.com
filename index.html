@@ -185,6 +185,133 @@
           transition: none !important;
         }
       }
+      :root {
+        --header-offset: 88px;
+      }
+      html {
+        scroll-padding-top: var(--header-offset);
+      }
+      #scroll-hint {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, 8px);
+        filter: drop-shadow(0 0 6px rgba(19, 127, 236, 0.25));
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1),
+          visibility 0.6s ease;
+      }
+      #scroll-hint.is-visible {
+        opacity: 0.7;
+        visibility: visible;
+        transform: translate(-50%, 0);
+      }
+      .scroll-hint-wheel {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: scroll-hint-wheel 1.9s ease-in-out infinite;
+      }
+      .scroll-hint-arrow {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: scroll-hint-arrow 1.9s ease-in-out infinite;
+      }
+      .scroll-hint-arrow-2 {
+        animation-delay: 0.16s;
+      }
+      @keyframes scroll-hint-wheel {
+        0% {
+          opacity: 0;
+          transform: translateY(0);
+        }
+        18% {
+          opacity: 1;
+        }
+        62% {
+          opacity: 1;
+          transform: translateY(10px);
+        }
+        82%,
+        100% {
+          opacity: 0;
+          transform: translateY(13px);
+        }
+      }
+      @keyframes scroll-hint-arrow {
+        0%,
+        100% {
+          opacity: 0.2;
+          transform: translateY(-1px);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(2px);
+        }
+      }
+      .boot-burst {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+      }
+      #hero {
+        overflow-x: clip;
+      }
+      #boot-bar {
+        transition: width 100ms linear;
+      }
+      .boot-burst-pixel {
+        position: absolute;
+        width: var(--size);
+        height: var(--size);
+        margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+        background: #137fec;
+        opacity: 0;
+        will-change: transform, opacity;
+        animation-name: boot-burst-pixel;
+        animation-timing-function: cubic-bezier(0.12, 0.72, 0.25, 1);
+        animation-fill-mode: both;
+      }
+      .boot-burst-pixel.is-cyan {
+        background: #22d3ee;
+      }
+      @keyframes boot-burst-pixel {
+        0% {
+          opacity: 0;
+          transform: translate(0, 0) scale(0.5);
+        }
+        12% {
+          opacity: 1;
+          transform: translate(calc(var(--dx) * 0.2), calc(var(--dy) * 0.2))
+            scale(1);
+        }
+        46% {
+          opacity: 0.9;
+        }
+        60% {
+          opacity: 0.25;
+        }
+        74% {
+          opacity: 0.75;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--dx), var(--dy)) scale(0.8);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #scroll-hint {
+          transform: translate(-50%, 0);
+          transition: opacity 0.001s linear;
+        }
+        #boot-bar {
+          transition: none;
+        }
+        .scroll-hint-wheel,
+        .scroll-hint-arrow {
+          animation: none;
+        }
+      }
     </style>
   </head>
   <body
@@ -250,6 +377,7 @@
             "
           ></div>
           <div
+            id="boot-block"
             class="relative pixel-border bg-terminal-bg p-10 max-w-3xl w-full text-center flex flex-col gap-6 crt"
           >
             <div class="text-left text-xs md:text-sm text-slate-400">
@@ -1704,6 +1832,46 @@
         </div>
       </footer>
     </div>
+    <div
+      id="scroll-hint"
+      aria-hidden="true"
+      class="pointer-events-none fixed bottom-4 md:bottom-7 left-1/2 z-40 flex flex-col items-center gap-1.5 text-primary select-none"
+    >
+      <svg width="22" height="34" viewBox="0 0 22 34" fill="none">
+        <rect
+          x="1"
+          y="1"
+          width="20"
+          height="32"
+          rx="10"
+          ry="10"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
+        <rect
+          class="scroll-hint-wheel"
+          x="9"
+          y="7"
+          width="4"
+          height="4"
+          fill="currentColor"
+        />
+      </svg>
+      <svg width="16" height="15" viewBox="0 0 16 15" fill="none">
+        <path
+          class="scroll-hint-arrow scroll-hint-arrow-1"
+          d="M1.5 1.5L8 7L14.5 1.5"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
+        <path
+          class="scroll-hint-arrow scroll-hint-arrow-2"
+          d="M1.5 7.5L8 13L14.5 7.5"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
+      </svg>
+    </div>
     <script
       src="https://challenges.cloudflare.com/turnstile/v0/api.js"
       async
@@ -1717,8 +1885,15 @@
 
       const steps = ["initializing", "loading ui", "loading data", "ready"];
 
+      const BOOT_INTERVAL_MS = 80;
+      const BOOT_MIN_STEP = 6;
+      const BOOT_STEP_JITTER = 4;
+
       const tick = () => {
-        p = Math.min(100, p + Math.floor(Math.random() * 0.5) + 4);
+        p = Math.min(
+          100,
+          p + Math.floor(Math.random() * BOOT_STEP_JITTER) + BOOT_MIN_STEP,
+        );
         bar.style.width = p + "%";
         const idx = Math.min(
           steps.length - 1,
@@ -1726,7 +1901,11 @@
         );
         status.textContent = steps[idx];
 
-        if (p < 100) requestAnimationFrame(() => setTimeout(tick, 120));
+        if (p < 100) {
+          requestAnimationFrame(() => setTimeout(tick, BOOT_INTERVAL_MS));
+        } else {
+          document.dispatchEvent(new CustomEvent("boot-complete"));
+        }
       };
 
       tick();
@@ -1921,6 +2100,192 @@
         cards.forEach(function (el) {
           observer.observe(el);
         });
+      })();
+    </script>
+    <script>
+      (() => {
+        const hint = document.getElementById("scroll-hint");
+        const bootBlock = document.getElementById("boot-block");
+        const hadInitialHash = window.location.hash.length > 1;
+        let hintDone = false;
+        let userInteracted = false;
+        let animationId = 0;
+
+        const reduceMotion = window.matchMedia
+          ? window.matchMedia("(prefers-reduced-motion: reduce)")
+          : { matches: false };
+
+        const currentY = () =>
+          window.pageYOffset || document.documentElement.scrollTop || 0;
+
+        const targetTop = (el) => {
+          const parsed = parseFloat(
+            getComputedStyle(document.documentElement).scrollPaddingTop,
+          );
+          const offset = Number.isNaN(parsed) ? 88 : parsed;
+          const max = Math.max(
+            0,
+            document.documentElement.scrollHeight - window.innerHeight,
+          );
+          return Math.max(
+            0,
+            Math.min(el.getBoundingClientRect().top + currentY() - offset, max),
+          );
+        };
+
+        const onUserInput = () => {
+          userInteracted = true;
+          animationId += 1;
+        };
+
+        ["wheel", "touchstart", "keydown"].forEach((name) => {
+          window.addEventListener(name, onUserInput, { passive: true });
+        });
+
+        const scrollToY = (y) => {
+          animationId += 1;
+          const start = currentY();
+          const distance = y - start;
+          if (reduceMotion.matches || Math.abs(distance) < 2) {
+            window.scrollTo(0, y);
+            return;
+          }
+          const id = animationId;
+          const duration = Math.min(
+            1200,
+            Math.max(550, Math.abs(distance) * 0.55),
+          );
+          let startTime = null;
+          const step = (now) => {
+            if (id !== animationId) return;
+            if (startTime === null) startTime = now;
+            const t = Math.min(1, (now - startTime) / duration);
+            const eased =
+              t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            window.scrollTo(0, start + distance * eased);
+            if (t < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        };
+
+        const onHintScroll = () => {
+          if (currentY() > 40) dismissHint();
+        };
+
+        const dismissHint = () => {
+          if (hintDone) return;
+          hintDone = true;
+          window.removeEventListener("scroll", onHintScroll);
+          if (hint) hint.classList.remove("is-visible");
+        };
+
+        const showHint = () => {
+          if (hintDone || !hint) return;
+          if (hadInitialHash || currentY() > 40) {
+            dismissHint();
+            return;
+          }
+          hint.classList.add("is-visible");
+          window.addEventListener("scroll", onHintScroll, { passive: true });
+        };
+
+        const runPixelBurst = () => {
+          if (reduceMotion.matches || !bootBlock) return;
+          const narrow = window.innerWidth < 640;
+          const count = narrow ? 24 : 44;
+          const layer = document.createElement("div");
+          layer.className = "boot-burst";
+          let remaining = count;
+
+          for (let i = 0; i < count; i += 1) {
+            const angle =
+              ((i + Math.random() * 0.85) / count) * Math.PI * 2 - Math.PI / 2;
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+            const reach = 1 / Math.max(Math.abs(cos), Math.abs(sin));
+            const spread =
+              (narrow ? 52 : 78) + Math.random() * (narrow ? 72 : 118);
+            const drift = (Math.random() - 0.5) * 28;
+            const dx = cos * spread - sin * drift;
+            const dy = sin * spread + cos * drift;
+
+            const pixel = document.createElement("i");
+            pixel.className =
+              i % 3 === 0 ? "boot-burst-pixel is-cyan" : "boot-burst-pixel";
+            pixel.style.left = `${(50 + 50 * cos * reach).toFixed(2)}%`;
+            pixel.style.top = `${(50 + 50 * sin * reach).toFixed(2)}%`;
+            pixel.style.setProperty(
+              "--size",
+              `${2 + Math.round(Math.random() * 4)}px`,
+            );
+            pixel.style.setProperty("--dx", `${dx.toFixed(1)}px`);
+            pixel.style.setProperty("--dy", `${dy.toFixed(1)}px`);
+            pixel.style.animationDelay = `${Math.round(Math.random() * 420)}ms`;
+            pixel.style.animationDuration = `${Math.round(980 + Math.random() * 520)}ms`;
+            pixel.addEventListener(
+              "animationend",
+              () => {
+                pixel.remove();
+                remaining -= 1;
+                if (remaining <= 0) layer.remove();
+              },
+              { once: true },
+            );
+            layer.appendChild(pixel);
+          }
+
+          bootBlock.appendChild(layer);
+          setTimeout(() => layer.remove(), 2600);
+        };
+
+        document.addEventListener(
+          "boot-complete",
+          () => {
+            runPixelBurst();
+            if (reduceMotion.matches) showHint();
+            else setTimeout(showHint, 320);
+          },
+          { once: true },
+        );
+
+        document.addEventListener("click", (e) => {
+          if (e.defaultPrevented || e.button !== 0) return;
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+          const link = e.target.closest ? e.target.closest("a[href]") : null;
+          if (!link) return;
+          if (link.target && link.target !== "_self") return;
+          const href = link.getAttribute("href");
+          if (!href || href.charAt(0) !== "#" || href.length < 2) return;
+          const el = document.getElementById(href.slice(1));
+          if (!el) return;
+          e.preventDefault();
+          dismissHint();
+          scrollToY(targetTop(el));
+          if (window.history && window.history.pushState) {
+            window.history.pushState(null, "", href);
+          } else {
+            window.location.hash = href;
+          }
+        });
+
+        window.addEventListener("popstate", () => {
+          const hash = window.location.hash;
+          const el =
+            hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+          dismissHint();
+          scrollToY(el ? targetTop(el) : 0);
+        });
+
+        if (hadInitialHash) {
+          const initialTarget = document.getElementById(
+            window.location.hash.slice(1),
+          );
+          if (initialTarget) {
+            window.addEventListener("load", () => {
+              if (!userInteracted) window.scrollTo(0, targetTop(initialTarget));
+            });
+          }
+        }
       })();
     </script>
   </body>
