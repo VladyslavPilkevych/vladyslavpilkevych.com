@@ -24,6 +24,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://vladyslavpilkevych.com" />
     <link rel="canonical" href="https://vladyslavpilkevych.com/" />
+    <link rel="stylesheet" href="./public/styles.css" />
     <meta
       property="og:image"
       content="https://vladyslavpilkevych.com/public/images/icon.png"
@@ -36,283 +37,6 @@
       sizes="32x32"
       href="/public/images/icon.png"
     />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#137fec",
-              "background-light": "#f6f7f8",
-              "background-dark": "#101922",
-              "terminal-bg": "#1e1e1e",
-              "terminal-header": "#2d2d2d",
-            },
-            fontFamily: {
-              display: ["Space Grotesk", "sans-serif"],
-              mono: ["JetBrains Mono", "monospace"],
-            },
-            borderRadius: {
-              DEFAULT: "0.125rem",
-              lg: "0.25rem",
-              xl: "0.5rem",
-              full: "0.75rem",
-            },
-            boxShadow: {
-              pixel: "0 4px 0 rgba(0,0,0,0.1)",
-              "pixel-border": "0 0 0 1px rgba(255,255,255,0.1)",
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      .pixel-border {
-        box-shadow:
-          0 -4px 0 0 #000,
-          0 4px 0 0 #000,
-          -4px 0 0 0 #000,
-          4px 0 0 0 #000;
-        margin: 4px;
-      }
-      .pixel-border-soft {
-        box-shadow:
-          0 -2px 0 0 rgba(0, 0, 0, 0.1),
-          0 2px 0 0 rgba(0, 0, 0, 0.1),
-          -2px 0 0 0 rgba(0, 0, 0, 0.1),
-          2px 0 0 0 rgba(0, 0, 0, 0.1);
-        margin: 2px;
-      }
-      .speech-bubble::after {
-        content: "";
-        position: absolute;
-        top: -6px;
-        left: 50%;
-        width: 12px;
-        height: 12px;
-        background: white;
-        border-left: 2px solid rgba(0, 0, 0, 0.1);
-        border-top: 2px solid rgba(0, 0, 0, 0.1);
-        transform: translateX(-50%) rotate(45deg);
-      }
-      @media (min-width: 768px) {
-        .speech-bubble::after {
-          top: 50%;
-          left: -6px;
-          border-left: 2px solid rgba(0, 0, 0, 0.1);
-          border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-          border-top: none;
-          transform: translateY(-50%) rotate(45deg);
-        }
-      }
-      @keyframes blink {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0;
-        }
-      }
-      .animate-blink {
-        animation: blink 1s step-end infinite;
-      }
-      .terminal-scroll::-webkit-scrollbar {
-        width: 8px;
-      }
-      .terminal-scroll::-webkit-scrollbar-track {
-        background: #1e1e1e;
-      }
-      .terminal-scroll::-webkit-scrollbar-thumb {
-        background: #333;
-        border-radius: 4px;
-      }
-      .terminal-scroll::-webkit-scrollbar-thumb:hover {
-        background: #444;
-      }
-      .crt::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: repeating-linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.03),
-          rgba(255, 255, 255, 0.03) 1px,
-          rgba(0, 0, 0, 0) 3px,
-          rgba(0, 0, 0, 0) 6px
-        );
-        opacity: 0.35;
-      }
-
-      .crt::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: radial-gradient(
-          circle at 50% 50%,
-          rgba(19, 127, 236, 0.12),
-          rgba(0, 0, 0, 0) 55%
-        );
-        opacity: 0.8;
-      }
-      .skill-reveal {
-        opacity: 0;
-        transform: translateY(16px);
-        transition:
-          opacity 0.5s ease,
-          transform 0.5s ease;
-        will-change: opacity, transform;
-      }
-      .skill-reveal.is-visible {
-        opacity: 1;
-        transform: none;
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .skill-reveal {
-          opacity: 1 !important;
-          transform: none !important;
-          transition: none !important;
-        }
-      }
-      :root {
-        --header-offset: 88px;
-      }
-      html {
-        scroll-padding-top: var(--header-offset);
-      }
-      #scroll-hint {
-        opacity: 0;
-        visibility: hidden;
-        transform: translate(-50%, 8px);
-        filter: drop-shadow(0 0 6px rgba(19, 127, 236, 0.25));
-        transition:
-          opacity 0.6s ease,
-          transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1),
-          visibility 0.6s ease;
-      }
-      #scroll-hint.is-visible {
-        opacity: 0.7;
-        visibility: visible;
-        transform: translate(-50%, 0);
-      }
-      .scroll-hint-wheel {
-        transform-box: fill-box;
-        transform-origin: center;
-        animation: scroll-hint-wheel 1.9s ease-in-out infinite;
-      }
-      .scroll-hint-arrow {
-        transform-box: fill-box;
-        transform-origin: center;
-        animation: scroll-hint-arrow 1.9s ease-in-out infinite;
-      }
-      .scroll-hint-arrow-2 {
-        animation-delay: 0.16s;
-      }
-      @keyframes scroll-hint-wheel {
-        0% {
-          opacity: 0;
-          transform: translateY(0);
-        }
-        18% {
-          opacity: 1;
-        }
-        62% {
-          opacity: 1;
-          transform: translateY(10px);
-        }
-        82%,
-        100% {
-          opacity: 0;
-          transform: translateY(13px);
-        }
-      }
-      @keyframes scroll-hint-arrow {
-        0%,
-        100% {
-          opacity: 0.2;
-          transform: translateY(-1px);
-        }
-        50% {
-          opacity: 1;
-          transform: translateY(2px);
-        }
-      }
-      .boot-burst {
-        position: absolute;
-        inset: 0;
-        z-index: 3;
-        pointer-events: none;
-      }
-      #hero {
-        overflow-x: clip;
-      }
-      #boot-bar {
-        transition: width 100ms linear;
-      }
-      .boot-burst-pixel {
-        position: absolute;
-        width: var(--size);
-        height: var(--size);
-        margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
-        background: #137fec;
-        opacity: 0;
-        will-change: transform, opacity;
-        animation-name: boot-burst-pixel;
-        animation-timing-function: cubic-bezier(0.12, 0.72, 0.25, 1);
-        animation-fill-mode: both;
-      }
-      .boot-burst-pixel.is-cyan {
-        background: #22d3ee;
-      }
-      @keyframes boot-burst-pixel {
-        0% {
-          opacity: 0;
-          transform: translate(0, 0) scale(0.5);
-        }
-        12% {
-          opacity: 1;
-          transform: translate(calc(var(--dx) * 0.2), calc(var(--dy) * 0.2))
-            scale(1);
-        }
-        46% {
-          opacity: 0.9;
-        }
-        60% {
-          opacity: 0.25;
-        }
-        74% {
-          opacity: 0.75;
-        }
-        100% {
-          opacity: 0;
-          transform: translate(var(--dx), var(--dy)) scale(0.8);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        #scroll-hint {
-          transform: translate(-50%, 0);
-          transition: opacity 0.001s linear;
-        }
-        #boot-bar {
-          transition: none;
-        }
-        .scroll-hint-wheel,
-        .scroll-hint-arrow {
-          animation: none;
-        }
-      }
-    </style>
   </head>
   <body
     class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200"
@@ -321,12 +45,15 @@
       <header
         class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 lg:px-40 py-4"
       >
-        <nav class="flex items-center justify-between max-w-[1200px] mx-auto">
+        <nav
+          aria-label="Main"
+          class="flex items-center justify-between max-w-[1200px] mx-auto"
+        >
           <a class="flex items-center gap-2" href="#hero">
             <div
               class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center text-white"
             >
-              <span class="material-symbols-outlined text-lg">joystick</span>
+              <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="4.75" r="2.75"/><path d="M11 7h2v7.5h-2z"/><path d="M7.5 15h9l2.5 4.5a1 1 0 0 1-.87 1.5H5.87a1 1 0 0 1-.87-1.5L7.5 15z"/></svg>
             </div>
             <span class="text-lg font-bold tracking-tight">Portfolio</span>
           </a>
@@ -352,17 +79,68 @@
               >Journey</a
             >
             <a
-              class="text-sm font-medium hover:text-primary transition-colors"
+              class="inline-block bg-primary-ink text-white px-5 py-2 rounded-sm text-sm font-bold shadow-[4px_4px_0px_0px_rgba(99,166,233,0.3)] active:translate-y-1 active:shadow-none transition-all"
               href="#contact"
-            >
-              <button
-                class="bg-primary text-white px-5 py-2 rounded-sm text-sm font-bold shadow-[4px_4px_0px_0px_rgba(99,166,233,0.3)] active:translate-y-1 active:shadow-none transition-all"
-              >
-                Contact me
-              </button></a
+              >Contact me</a
             >
           </div>
+          <button
+            id="nav-toggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+            class="md:hidden w-10 h-10 flex items-center justify-center border border-slate-300 dark:border-slate-700 rounded-sm text-slate-700 dark:text-slate-200 hover:border-primary hover:text-primary transition-colors"
+          >
+            <span class="nav-burger" aria-hidden="true"
+              ><span></span><span></span><span></span
+            ></span>
+          </button>
         </nav>
+        <div
+          id="mobile-nav"
+          class="md:hidden border-b border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark px-6 shadow-lg"
+        >
+          <ul
+            class="max-w-[1200px] mx-auto flex flex-col gap-1 py-3 font-mono text-sm"
+          >
+            <li>
+              <a
+                class="block py-2 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors"
+                href="#about"
+                ><span class="text-primary">&gt;</span> about</a
+              >
+            </li>
+            <li>
+              <a
+                class="block py-2 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors"
+                href="#skills"
+                ><span class="text-primary">&gt;</span> skills</a
+              >
+            </li>
+            <li>
+              <a
+                class="block py-2 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors"
+                href="#projects"
+                ><span class="text-primary">&gt;</span> projects</a
+              >
+            </li>
+            <li>
+              <a
+                class="block py-2 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors"
+                href="#journey"
+                ><span class="text-primary">&gt;</span> journey</a
+              >
+            </li>
+            <li>
+              <a
+                class="block py-2 text-primary-ink dark:text-primary-glow font-bold hover:text-primary transition-colors"
+                href="#contact"
+                ><span class="text-primary">&gt;</span> contact_me</a
+              >
+            </li>
+          </ul>
+        </div>
       </header>
       <main class="flex-1 flex flex-col items-center">
         <section
@@ -397,7 +175,7 @@
               <div
                 class="mt-3 h-2 border border-slate-700 bg-slate-900 pixel-border-soft overflow-hidden"
               >
-                <div id="boot-bar" class="h-full bg-primary w-0"></div>
+                <div id="boot-bar" class="h-full bg-primary w-full"></div>
               </div>
 
               <div class="mt-2 text-slate-500">
@@ -488,7 +266,7 @@
                 class="text-lg leading-relaxed text-slate-600 dark:text-slate-400"
               >
                 Hi there! I'm a
-                <span class="text-primary font-bold">Frontend Engineer</span>
+                <span class="text-primary-ink font-bold">Frontend Engineer</span>
                 with 4+ years of experience building high-reliability fintech
                 and biometric systems. Specialized in React, TypeScript, and
                 performance optimization of large-scale applications.
@@ -812,7 +590,7 @@
                     <span class="material-icons text-sm mr-1">terminal</span>
                     vladyslavpilkevych@portfolio:~/skills
                   </div>
-                  <div class="text-xs text-gray-500 font-mono">zsh</div>
+                  <div class="text-xs text-gray-400 font-mono">zsh</div>
                 </div>
                 <div
                   class="p-6 md:p-8 font-mono text-sm leading-relaxed overflow-x-hidden terminal-scroll"
@@ -827,7 +605,7 @@
                     class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-y-6 gap-x-4 items-baseline"
                   >
                     <div
-                      class="text-primary font-bold tracking-wide text-xs md:text-sm uppercase opacity-90"
+                      class="text-primary-glow font-bold tracking-wide text-xs md:text-sm uppercase"
                     >
                       Languages:
                     </div>
@@ -1038,7 +816,7 @@
                 </div>
               </div>
               <div class="mt-4 text-center hidden md:block">
-                <span class="text-xs text-gray-400 dark:text-gray-500 font-mono"
+                <span class="text-xs text-gray-500 dark:text-gray-400 font-mono"
                   >Last login: Today from 192.168.1.1</span
                 >
               </div>
@@ -1058,7 +836,7 @@
               </h2>
               <div class="w-12 h-1 bg-primary"></div>
               <p
-                class="text-slate-500 dark:text-slate-400 text-sm max-w-2xl leading-relaxed pt-2"
+                class="text-slate-600 dark:text-slate-400 text-sm max-w-2xl leading-relaxed pt-2"
               >
                 Production systems and selected engineering projects focused on
                 performance, scalability, and real-world impact.
@@ -1066,7 +844,7 @@
             </div>
             <div class="flex flex-col gap-4">
               <h3
-                class="text-xs font-black uppercase tracking-[0.25em] text-slate-400"
+                class="text-xs font-black uppercase tracking-[0.25em] text-slate-600"
               >
                 Production Experience
               </h3>
@@ -1081,7 +859,7 @@
                     <div class="flex items-start justify-between">
                       <div>
                         <span
-                          class="text-[10px] font-black uppercase tracking-[0.2em] text-primary"
+                          class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-ink"
                         >
                           Biometric Identification Platform
                         </span>
@@ -1089,21 +867,19 @@
                           Innovatrics ABIS
                         </h3>
                       </div>
-                      <span class="material-symbols-outlined text-primary"
-                        >open_in_new</span
-                      >
+                      <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                       <div>
                         <span
-                          class="text-[10px] font-black uppercase tracking-wider text-slate-400"
+                          class="text-[10px] font-black uppercase tracking-wider text-slate-600"
                           >Role</span
                         >
                         <p class="font-bold mt-1">Frontend Engineer</p>
                       </div>
                       <div>
                         <span
-                          class="text-[10px] font-black uppercase tracking-wider text-slate-400"
+                          class="text-[10px] font-black uppercase tracking-wider text-slate-600"
                           >Domain</span
                         >
                         <p class="font-bold mt-1">
@@ -1112,7 +888,7 @@
                       </div>
                       <div>
                         <span
-                          class="text-[10px] font-black uppercase tracking-wider text-slate-400"
+                          class="text-[10px] font-black uppercase tracking-wider text-slate-600"
                           >Focus</span
                         >
                         <p class="font-bold mt-1">
@@ -1181,7 +957,7 @@
                     <div class="flex items-start justify-between">
                       <div>
                         <span
-                          class="text-[10px] font-black uppercase tracking-[0.2em] text-primary"
+                          class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-ink"
                         >
                           Enterprise Banking Platform
                         </span>
@@ -1189,14 +965,12 @@
                           Banking Branch Platform
                         </h3>
                       </div>
-                      <span class="material-symbols-outlined text-primary"
-                        >open_in_new</span
-                      >
+                      <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                       <div>
                         <span
-                          class="text-[10px] font-black uppercase tracking-wider text-slate-400"
+                          class="text-[10px] font-black uppercase tracking-wider text-slate-600"
                           >Role</span
                         >
                         <p class="font-bold mt-1">
@@ -1205,14 +979,14 @@
                       </div>
                       <div>
                         <span
-                          class="text-[10px] font-black uppercase tracking-wider text-slate-400"
+                          class="text-[10px] font-black uppercase tracking-wider text-slate-600"
                           >Domain</span
                         >
                         <p class="font-bold mt-1">Banking / Internal Systems</p>
                       </div>
                       <div>
                         <span
-                          class="text-[10px] font-black uppercase tracking-wider text-slate-400"
+                          class="text-[10px] font-black uppercase tracking-wider text-slate-600"
                           >Focus</span
                         >
                         <p class="font-bold mt-1">Forms / State / UX</p>
@@ -1278,7 +1052,7 @@
             </div>
             <div class="flex flex-col gap-4">
               <h3
-                class="text-xs font-black uppercase tracking-[0.25em] text-slate-400"
+                class="text-xs font-black uppercase tracking-[0.25em] text-slate-600"
               >
                 Side Projects & Experiments
               </h3>
@@ -1295,11 +1069,7 @@
 
                   <div class="flex items-start justify-between mb-2">
                     <h3 class="text-lg font-bold">Graph Pilot</h3>
-                    <span
-                      class="material-symbols-outlined text-slate-400 group-hover:text-pink-400 transition-colors"
-                    >
-                      open_in_new
-                    </span>
+                    <svg class="w-6 h-6 text-slate-400 group-hover:text-pink-400 transition-colors" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
                   </div>
 
                   <p
@@ -1336,11 +1106,7 @@
 
                   <div class="flex items-start justify-between mb-2">
                     <h3 class="text-lg font-bold">Cyberpunk Car 3D</h3>
-                    <span
-                      class="material-symbols-outlined text-slate-400 group-hover:text-yellow-400 transition-colors"
-                    >
-                      open_in_new
-                    </span>
+                    <svg class="w-6 h-6 text-slate-400 group-hover:text-yellow-400 transition-colors" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
                   </div>
 
                   <p
@@ -1377,11 +1143,7 @@
 
                   <div class="flex items-start justify-between mb-2">
                     <h3 class="text-lg font-bold">React Address Select</h3>
-                    <span
-                      class="material-symbols-outlined text-slate-400 group-hover:text-cyan-400 transition-colors"
-                    >
-                      open_in_new
-                    </span>
+                    <svg class="w-6 h-6 text-slate-400 group-hover:text-cyan-400 transition-colors" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
                   </div>
 
                   <p
@@ -1433,18 +1195,18 @@
                 >
                   <div>
                     <h3 class="text-lg font-bold">Frontend Engineer</h3>
-                    <p class="text-primary font-medium text-sm">
+                    <p class="text-primary-ink font-medium text-sm">
                       <a href="https://www.innovatrics.com" target="_blank"
                         >Innovatrics</a
                       >
-                      <span class="text-slate-400 dark:text-slate-500"
+                      <span class="text-slate-600 dark:text-slate-400"
                         >(Biometric)</span
                       >
                       • Oct 2024 — Present
                     </p>
                   </div>
                   <div
-                    class="bg-primary/10 text-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest"
+                    class="bg-primary/10 text-primary-ink text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest"
                   >
                     Active
                   </div>
@@ -1501,9 +1263,9 @@
                     <h3 class="text-lg font-bold">
                       Frontend / Full-Stack Developer
                     </h3>
-                    <p class="text-primary/60 font-medium text-sm">
+                    <p class="text-primary-ink font-medium text-sm">
                       <a href="https://www.softec.sk" target="_blank">Softec</a>
-                      <span class="text-slate-400 dark:text-slate-500 text-sm"
+                      <span class="text-slate-600 dark:text-slate-400 text-sm"
                         >(Banking)</span
                       >
                       • Jan 2023 — Oct 2024
@@ -1511,7 +1273,7 @@
                   </div>
                 </div>
                 <p
-                  class="mt-2 text-slate-500 dark:text-slate-500 text-sm leading-relaxed max-w-2xl italic"
+                  class="mt-2 text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-2xl italic"
                 >
                   External development team for Slovenská Sporiteľňa (one of the
                   largest banks in Slovakia)
@@ -1551,9 +1313,9 @@
                 >
                   <div>
                     <h3 class="text-lg font-bold">Frontend Developer</h3>
-                    <p class="text-primary/60 font-medium text-sm">
+                    <p class="text-primary-ink font-medium text-sm">
                       <a href="https://dan-it.com" target="_blank">DAN.IT</a>
-                      <span class="text-slate-400 dark:text-slate-500"
+                      <span class="text-slate-600 dark:text-slate-400"
                         >(e-shops)</span
                       >
                       • Jul 2021 — Dec 2022
@@ -1599,7 +1361,7 @@
                   <div class="w-3 h-3 bg-[#27c93f] rounded-full"></div>
                 </div>
                 <span
-                  class="ml-4 text-[10px] font-bold uppercase tracking-widest text-slate-400"
+                  class="ml-4 text-[10px] font-bold uppercase tracking-widest text-slate-600"
                   >contact_me.exe</span
                 >
               </div>
@@ -1607,7 +1369,7 @@
                 <form id="contactForm" class="flex flex-col gap-5">
                   <div class="flex flex-col gap-1">
                     <label
-                      class="text-[10px] font-bold text-primary uppercase tracking-widest"
+                      class="text-[10px] font-bold text-primary-ink uppercase tracking-widest"
                       for="name"
                       >Name</label
                     >
@@ -1622,7 +1384,7 @@
 
                   <div class="flex flex-col gap-1">
                     <label
-                      class="text-[10px] font-bold text-primary uppercase tracking-widest"
+                      class="text-[10px] font-bold text-primary-ink uppercase tracking-widest"
                       for="email"
                       >Email</label
                     >
@@ -1637,7 +1399,7 @@
 
                   <div class="flex flex-col gap-1">
                     <label
-                      class="text-[10px] font-bold text-primary uppercase tracking-widest"
+                      class="text-[10px] font-bold text-primary-ink uppercase tracking-widest"
                       for="message"
                       >Message</label
                     >
@@ -1651,7 +1413,7 @@
 
                   <button
                     id="contactSubmit"
-                    class="bg-primary text-white px-6 py-3 rounded-sm text-sm font-bold shadow-[4px_4px_0px_0px_rgba(99,166,233,0.3)] hover:shadow-[2px_2px_0px_0px_rgba(99,166,233,0.3)] active:translate-y-1 active:shadow-none transition-all mt-2 uppercase tracking-widest disabled:opacity-60 disabled:cursor-not-allowed"
+                    class="bg-primary-ink text-white px-6 py-3 rounded-sm text-sm font-bold shadow-[4px_4px_0px_0px_rgba(99,166,233,0.3)] hover:shadow-[2px_2px_0px_0px_rgba(99,166,233,0.3)] active:translate-y-1 active:shadow-none transition-all mt-2 uppercase tracking-widest disabled:opacity-60 disabled:cursor-not-allowed"
                     type="submit"
                   >
                     Send Message
@@ -1665,15 +1427,17 @@
                   class="flex flex-col items-center gap-4 pt-4 border-t border-slate-100 dark:border-slate-800"
                 >
                   <span
-                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+                    class="text-[10px] font-bold text-slate-600 uppercase tracking-widest"
                     >Find me on:</span
                   >
                   <div class="flex items-center gap-4">
                     <a
                       href="mailto:vladyslav.pilkevych@gmail.com"
-                      class="w-10 h-10 flex items-center justify-center border-2 border-slate-200 dark:border-slate-700 rounded-sm text-slate-400 hover:text-primary hover:border-primary transition-all"
+                      aria-label="Email Vladyslav Pilkevych"
+                      class="w-10 h-10 flex items-center justify-center border-2 border-slate-300 dark:border-slate-700 rounded-sm text-slate-500 hover:text-primary hover:border-primary transition-all"
                     >
                       <svg
+                        aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 group-hover:text-primary"
                         fill="none"
@@ -1688,9 +1452,11 @@
                     </a>
                     <a
                       href="tel:+421951945048"
-                      class="w-10 h-10 flex items-center justify-center border-2 border-slate-200 dark:border-slate-700 rounded-sm text-slate-400 hover:text-primary hover:border-primary transition-all"
+                      aria-label="Call Vladyslav Pilkevych"
+                      class="w-10 h-10 flex items-center justify-center border-2 border-slate-300 dark:border-slate-700 rounded-sm text-slate-500 hover:text-primary hover:border-primary transition-all"
                     >
                       <svg
+                        aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5"
                         fill="none"
@@ -1705,11 +1471,13 @@
                     </a>
                     <a
                       href="https://github.com/VladyslavPilkevych"
+                      aria-label="Vladyslav Pilkevych on GitHub (opens in a new tab)"
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="w-10 h-10 flex items-center justify-center border-2 border-slate-200 dark:border-slate-700 rounded-sm text-slate-400 hover:text-primary hover:border-primary transition-all"
+                      class="w-10 h-10 flex items-center justify-center border-2 border-slate-300 dark:border-slate-700 rounded-sm text-slate-500 hover:text-primary hover:border-primary transition-all"
                     >
                       <svg
+                        aria-hidden="true"
                         viewBox="0 0 24 24"
                         class="w-5 h-5 fill-slate-400 hover:fill-primary transition-colors"
                       >
@@ -1720,11 +1488,13 @@
                     </a>
                     <a
                       href="https://linkedin.com/in/vladyslav-pilkevych-4409b5236/"
+                      aria-label="Vladyslav Pilkevych on LinkedIn (opens in a new tab)"
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="w-10 h-10 flex items-center justify-center border-2 border-slate-200 dark:border-slate-700 rounded-sm text-slate-400 hover:text-primary hover:border-primary transition-all"
+                      class="w-10 h-10 flex items-center justify-center border-2 border-slate-300 dark:border-slate-700 rounded-sm text-slate-500 hover:text-primary hover:border-primary transition-all"
                     >
                       <svg
+                        aria-hidden="true"
                         viewBox="0 0 24 24"
                         class="w-5 h-5 fill-slate-400 hover:fill-primary transition-colors"
                       >
@@ -1757,6 +1527,7 @@
           <div class="flex items-center gap-4">
             <a
               href="mailto:vladyslav.pilkevych@gmail.com"
+                      aria-label="Email Vladyslav Pilkevych"
               class="w-12 h-12 bg-slate-800 flex items-center justify-center border border-slate-700 pixel-border-soft hover:border-primary hover:text-primary transition-all duration-200"
             >
               <svg
@@ -1774,6 +1545,7 @@
             </a>
             <a
               href="tel:+421951945048"
+                      aria-label="Call Vladyslav Pilkevych"
               class="w-12 h-12 bg-slate-800 flex items-center justify-center border border-slate-700 pixel-border-soft hover:border-primary hover:text-primary transition-all duration-200"
             >
               <svg
@@ -1791,11 +1563,13 @@
             </a>
             <a
               href="https://github.com/VladyslavPilkevych"
+              aria-label="Vladyslav Pilkevych on GitHub (opens in a new tab)"
               target="_blank"
               rel="noopener noreferrer"
               class="w-12 h-12 bg-slate-800 flex items-center justify-center border border-slate-700 pixel-border-soft hover:border-primary hover:text-primary transition-all duration-200"
             >
               <svg
+                aria-hidden="true"
                 viewBox="0 0 24 24"
                 class="w-5 h-5 fill-slate-300 hover:fill-primary transition-colors"
               >
@@ -1806,11 +1580,13 @@
             </a>
             <a
               href="https://linkedin.com/in/vladyslav-pilkevych-4409b5236/"
+              aria-label="Vladyslav Pilkevych on LinkedIn (opens in a new tab)"
               target="_blank"
               rel="noopener noreferrer"
               class="w-12 h-12 bg-slate-800 flex items-center justify-center border border-slate-700 pixel-border-soft hover:border-primary hover:text-primary transition-all duration-200"
             >
               <svg
+                aria-hidden="true"
                 viewBox="0 0 24 24"
                 class="w-5 h-5 fill-slate-300 hover:fill-primary transition-colors"
               >
@@ -1822,7 +1598,7 @@
           </div>
         </div>
         <div
-          class="max-w-[1200px] mx-auto mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-medium uppercase tracking-widest"
+          class="max-w-[1200px] mx-auto mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400 font-medium uppercase tracking-widest"
         >
           <p>© 2026 VLADYSLAV PILKEVYCH PORTFOLIO</p>
           <div class="flex items-center gap-2">
@@ -1872,6 +1648,17 @@
         />
       </svg>
     </div>
+    <button
+      id="to-top"
+      type="button"
+      aria-label="Back to top"
+      class="fixed bottom-5 right-5 md:bottom-7 md:right-7 z-40 w-11 h-11 flex items-center justify-center bg-terminal-bg/90 backdrop-blur-sm border border-primary/40 pixel-border-soft text-primary-glow"
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M8 13.5V3.5" stroke="currentColor" stroke-width="1.75" />
+        <path d="M3 8.5L8 3.5L13 8.5" stroke="currentColor" stroke-width="1.75" />
+      </svg>
+    </button>
     <script
       src="https://challenges.cloudflare.com/turnstile/v0/api.js"
       async
@@ -1894,7 +1681,7 @@
           100,
           p + Math.floor(Math.random() * BOOT_STEP_JITTER) + BOOT_MIN_STEP,
         );
-        bar.style.width = p + "%";
+        bar.style.transform = `scaleX(${p / 100})`;
         const idx = Math.min(
           steps.length - 1,
           Math.floor((p / 100) * steps.length),
@@ -1925,7 +1712,8 @@
         if (window.turnstile && tsWidgetId === null) {
           tsWidgetId = turnstile.render("#ts", {
             sitekey: TURNSTILE_SITE_KEY,
-            size: "invisible",
+            execution: "execute",
+            appearance: "interaction-only",
             callback: (token) => {
               if (tsResolve) {
                 const r = tsResolve;
@@ -2118,24 +1906,90 @@
         const currentY = () =>
           window.pageYOffset || document.documentElement.scrollTop || 0;
 
-        const targetTop = (el) => {
+        const HERO_ID = "hero";
+        const cleanUrl = () =>
+          window.location.pathname + window.location.search;
+
+        const headerOffset = () => {
           const parsed = parseFloat(
             getComputedStyle(document.documentElement).scrollPaddingTop,
           );
-          const offset = Number.isNaN(parsed) ? 88 : parsed;
+          return Number.isNaN(parsed) ? 88 : parsed;
+        };
+
+        const targetTop = (el) => {
           const max = Math.max(
             0,
             document.documentElement.scrollHeight - window.innerHeight,
           );
           return Math.max(
             0,
-            Math.min(el.getBoundingClientRect().top + currentY() - offset, max),
+            Math.min(
+              el.getBoundingClientRect().top + currentY() - headerOffset(),
+              max,
+            ),
           );
+        };
+
+        const SYNC_IDS = ["about", "skills", "projects", "journey"];
+        const SYNC_SETTLE_MS = 140;
+        const syncSections = SYNC_IDS.map((id) =>
+          document.getElementById(id),
+        ).filter(Boolean);
+        const holdSection = document.getElementById("contact");
+        const walkSections = holdSection
+          ? [...syncSections, holdSection]
+          : syncSections;
+
+        let syncLockUntil = 0;
+        let syncTimer = 0;
+
+        const lockSync = (ms) => {
+          syncLockUntil = Math.max(syncLockUntil, performance.now() + ms);
+        };
+
+        const activeSection = () => {
+          const line = headerOffset() + 4;
+          let found = null;
+          for (const el of walkSections) {
+            if (el.getBoundingClientRect().top <= line) found = el;
+          }
+          return found;
+        };
+
+        const applyHash = () => {
+          if (performance.now() < syncLockUntil) {
+            scheduleSync();
+            return;
+          }
+          const el = activeSection();
+          if (el === holdSection) return;
+          const next = el ? `#${el.id}` : "";
+          if (next === window.location.hash) return;
+          window.history.replaceState(null, "", next || cleanUrl());
+        };
+
+        const scheduleSync = () => {
+          window.clearTimeout(syncTimer);
+          syncTimer = window.setTimeout(applyHash, SYNC_SETTLE_MS);
+        };
+
+        const startHashSync = () => {
+          if (!syncSections.length) return;
+          if (!window.history.replaceState) return;
+          if (!("IntersectionObserver" in window)) return;
+          const observer = new IntersectionObserver(scheduleSync, {
+            rootMargin: `-${headerOffset()}px 0px 0px 0px`,
+            threshold: 0,
+          });
+          walkSections.forEach((el) => observer.observe(el));
+          scheduleSync();
         };
 
         const onUserInput = () => {
           userInteracted = true;
           animationId += 1;
+          syncLockUntil = 0;
         };
 
         ["wheel", "touchstart", "keydown"].forEach((name) => {
@@ -2147,6 +2001,7 @@
           const start = currentY();
           const distance = y - start;
           if (reduceMotion.matches || Math.abs(distance) < 2) {
+            lockSync(200);
             window.scrollTo(0, y);
             return;
           }
@@ -2155,14 +2010,22 @@
             1200,
             Math.max(550, Math.abs(distance) * 0.55),
           );
+          lockSync(duration + 200);
           let startTime = null;
+          let expectedY = null;
           const step = (now) => {
             if (id !== animationId) return;
+            if (expectedY !== null && Math.abs(currentY() - expectedY) > 2) {
+              animationId += 1;
+              syncLockUntil = 0;
+              return;
+            }
             if (startTime === null) startTime = now;
             const t = Math.min(1, (now - startTime) / duration);
             const eased =
               t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
             window.scrollTo(0, start + distance * eased);
+            expectedY = currentY();
             if (t < 1) requestAnimationFrame(step);
           };
           requestAnimationFrame(step);
@@ -2176,7 +2039,9 @@
           if (hintDone) return;
           hintDone = true;
           window.removeEventListener("scroll", onHintScroll);
-          if (hint) hint.classList.remove("is-visible");
+          if (!hint) return;
+          hint.classList.remove("is-visible");
+          window.setTimeout(() => hint.remove(), 800);
         };
 
         const showHint = () => {
@@ -2250,20 +2115,30 @@
 
         document.addEventListener("click", (e) => {
           if (e.defaultPrevented || e.button !== 0) return;
+          if (
+            menuOpen &&
+            e.target.closest &&
+            !e.target.closest("#mobile-nav") &&
+            !e.target.closest("#nav-toggle")
+          ) {
+            setMenu(false);
+          }
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
           const link = e.target.closest ? e.target.closest("a[href]") : null;
           if (!link) return;
           if (link.target && link.target !== "_self") return;
           const href = link.getAttribute("href");
           if (!href || href.charAt(0) !== "#" || href.length < 2) return;
-          const el = document.getElementById(href.slice(1));
+          const id = href.slice(1);
+          const el = document.getElementById(id);
           if (!el) return;
           e.preventDefault();
+          setMenu(false);
           dismissHint();
           scrollToY(targetTop(el));
           if (window.history && window.history.pushState) {
-            window.history.pushState(null, "", href);
-          } else {
+            window.history.pushState(null, "", id === HERO_ID ? cleanUrl() : href);
+          } else if (id !== HERO_ID) {
             window.location.hash = href;
           }
         });
@@ -2276,15 +2151,78 @@
           scrollToY(el ? targetTop(el) : 0);
         });
 
+        const navToggle = document.getElementById("nav-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
+        let menuOpen = false;
+
+        const setMenu = (open) => {
+          if (!navToggle || !mobileNav || menuOpen === open) return;
+          menuOpen = open;
+          navToggle.setAttribute("aria-expanded", String(open));
+          navToggle.setAttribute(
+            "aria-label",
+            open ? "Close navigation menu" : "Open navigation menu",
+          );
+          navToggle.classList.toggle("is-open", open);
+          mobileNav.classList.toggle("is-open", open);
+        };
+
+        if (navToggle && mobileNav) {
+          navToggle.addEventListener("click", () => setMenu(!menuOpen));
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && menuOpen) {
+              setMenu(false);
+              navToggle.focus();
+            }
+          });
+          window.addEventListener("scroll", () => setMenu(false), {
+            passive: true,
+          });
+          window.addEventListener("resize", () => setMenu(false));
+        }
+
+        const toTop = document.getElementById("to-top");
+        const heroSection = document.getElementById(HERO_ID);
+
+        if (toTop) {
+          toTop.addEventListener("click", () => {
+            dismissHint();
+            scrollToY(0);
+            if (window.history.replaceState) {
+              window.history.replaceState(null, "", cleanUrl());
+            }
+          });
+          if (heroSection && "IntersectionObserver" in window) {
+            new IntersectionObserver(
+              ([entry]) => {
+                toTop.classList.toggle("is-visible", !entry.isIntersecting);
+              },
+              { rootMargin: "-400px 0px 0px 0px", threshold: 0 },
+            ).observe(heroSection);
+          } else {
+            toTop.classList.add("is-visible");
+          }
+        }
+
         if (hadInitialHash) {
           const initialTarget = document.getElementById(
             window.location.hash.slice(1),
           );
-          if (initialTarget) {
-            window.addEventListener("load", () => {
-              if (!userInteracted) window.scrollTo(0, targetTop(initialTarget));
-            });
-          }
+          let movedBeforeLoad = false;
+          const markMoved = () => {
+            movedBeforeLoad = true;
+          };
+          window.addEventListener("scroll", markMoved, { passive: true });
+          window.addEventListener("load", () => {
+            window.removeEventListener("scroll", markMoved);
+            if (initialTarget && !userInteracted && !movedBeforeLoad) {
+              window.scrollTo(0, targetTop(initialTarget));
+            }
+            lockSync(250);
+            startHashSync();
+          });
+        } else {
+          startHashSync();
         }
       })();
     </script>
